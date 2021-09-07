@@ -1,57 +1,75 @@
 # How to contribute
 
 Before you contribute start with a bit of research. Check if ther are any rules for what you're about to add. If there's no rule, let's get started. 
-You can see the entire rules set in https://github.com/EitanWo/findNfix/tree/main/rules 
+You can see the entire rules set under [Issues](https://github.com/CrowdQ/rules/issues)
 
-### 1. Select a rule name and create your contribution folder
-In the "contributions" folder create a folder with the name of your new rule.
+### 1. Create your submission ticket
+Navigate to the `Issues` page https://github.com/CrowdQ/rules/issues/new/choose and create a new issue using the `Issue sumbmission form`. Click on ***Get Started*** and let's begin!  
 
-Eg. You're planning to create a rule for docker commands that warns you when you're runing something ```--privileged```. 
-We'll name it ```dockerPrivileged``` 
-Once you picked a name create a folder called same thing as your rule name under ```contributions```.
-Then create a json file with your rule name where you'll store your rule logic and a few files we can use for tests. We'll use 1 file called ```dockerPrivilegedTest1.sh``` 
+### 2. Find a vulnerability to create a rule for
+If you're just getting started, a good place to start with your investigation is [**OWASP top 10**](https://owasp.org/www-project-top-ten/). 
 
-Your final folder structure should look something like this: 
+Read about the vulnerabilities that exist and pick one you like best. After you picked a vulnerability it's time for you to pick a language and see if your selected vulnerability exists in said language. 
+
+In this case we're going to look at at `A7:2017-Cross-Site Scripting XSS` and the languages I'm interested are JavaScript(JS) and Java & JSPs. 
+
+### Vulnerability Type
+I now know the vulnerability type I'm after: `Cross Site Scripting (XSS)`. Use this for the Vulnerability Typ field. 
+
+### CWE
+The second thing you'll want is the CWE value. Head over to [CWE](https://cwe.mitre.org/) and look for the vulnerability type and you'll quickly find the number you are after. You'll find that for XSS the value is 79. If you're unsure don't fill in the CWE Value. 
+
+### Explain the Vulnerability you are tring to find
+After a bit of research about how JavaScript and JSP can lead to XSS I found out that if I print out a parameter that was sent to my application without cleaning it out it can execute the JavaScript code embedded in there. 
+As sources you can use blogs, research documents, OWASP is always a good source. 
+
+`[Important]` Do not plagiarise other sources. While it's useful to read blogs and look at what others are doing, plagiarism will not be accepted. 
+
+After you explained birefly the vulnerability, explain how someone could find this vulnerability. 
+
+### How can we find the vulnerable code? 
+Explain for what someone should look for if they want to find this vulnerability. Be as explicit as you can and include some code samples. Using the example above I know that we can print something out in JS with `document.write`. 
+
+Within a JSP I can get a user input (or parameters) using `<%request.getParameter(parameterId)%>` 
+
+This means that if someone will print that value without sanitizing it, they could become vulnerable to XSS.
+
+```javascript
+<script>
+document.write(<%request.getParameter("userid")%>) 
+</script>
 ```
-|-- contributions
-|   `-- dockerPrivilege.                  <-- Folder where the rule and test files goes
-|       |-- dockerPrivilege.json          <-- JsonFile with the rules and Fix
-|       `-- dockerPrivilegeTest1.sh.      <-- Test files 
+
+### How can we fix this vulnerability?
+Now that we know about how the vulnerability looks in code, we will want to understand how someone can fix this vulnerability.
+
+This step is not mandatory, but having a strong fix (and a way to fix automatically) will strongly improve the addoption and usage of the rule. 
+In the case above we can get the parameter in an encoded format wich will simply print out instead of being executed. The method we need to use is `getEncodedParameter` 
+
+I can now write a snippet of code which shows how to fix the vulnerability:
+```javascript
+<script>
+document.write(<%request.getEncodedParameter("userid")%>) 
+</script>
 ```
 
-### 2. Create your rule 
-The rule that will find the vulnerability will be created in the JSON file. 
-There are 2 ways of creating a rule. Depending on how skilled you are with regex you can either: 
-- Create a regex rule that will identify the rule and report back the vulnerable code constructs
-- Describe your rule and what the problem is with a brief paragraph 
+### What apps are affected by the vulneraility 
+Select from the list the type of apps that are affected by this vulnerability. If you think there's a different type of app that is not in the list, mention this in the further reading section. 
 
-To start building your rule in the .json file use the following keys followed by either regex or a short description:
-- ```"rule":"--priviledged"``` - If you know how to create your regex. In our case we're specifically looking for the --priviledged flag so there's no need to create a complex regex. 
-- ```"rule_explained":"the --priviledged flag in docker run commands can be dangerous"``` - If you do not know the regex formula explain what the rule should look for. One of the project contributors will look at the submission and create the rule. A good place to work on your regex is here [RegexGenerator](https://regex-generator.olafneumann.org/?sampleText=2020-03-12T13%3A34%3A56.123Z%20INFO%20%20%5Borg.example.Class%5D%3A%20This%20is%20a%20%23simple%20%23logline%20containing%20a%20%27value%27.&flags=i&onlyPatterns=false&matchWholeLine=true&selection=) 
+### Further reading 
+In this section you will want to ad links ot external sources. In our case there's intheresting information about this in places like OWASP, the CWE article, and links to other blogs that explain what `getEncodedParameter`does and when it should be used instead of `getParameter` 
 
-### 3. Create your fix 
-After the rule is created you need to provide a fix. The fix is optional, but highly recommended. Automatically fixing a vulnerability can make the life of developers a lot easier. 
+# 3. Select your issue title
+At the top of the form you'll see something like this:
+`[Rule&Fix]: <Vulnerability Name> - <Severity> - CWE <number>`
 
-Similar to the rule, you can either use a regex formula to decide how to change it or explain with your own words how to change it. 
+If you have both a detection Rule advisory and a way to fix it, user `Rule&Fix` otherwise simply use `Rule`. 
+Select your vulnerability name. It can always be changed later if you don't like it. 
+The select a severity and a CWE value. 
+If you don't know what severity to use or what it means, use `Unknown`. A simple way of selecting a severity is to think about how much damage this vulnerability can do if exploited. If it's really bad, select Critical and go down to High, Medium, Low or Informational. 
 
-To create your fix, in the .json file use the following keys followed by either regex or a short description:
-- ```"fix":""``` - In this case we'll simply remove the --privileged flag. However, you can have more complex formulas in here to create your fix. 
-- ```"fix_explained":"the --priviledged flag should be removed from the docker run command"``` - If you do not know how to construct the fix, explain in your own words what's expected behaviour. 
+# 4. Get started 
+As a general advice you'll want to target at list items from the [OWASP Top 10](https://owasp.org/www-project-top-ten/) list or [2021 CWE Top 25 Most Dangerous Software Weaknesses](https://cwe.mitre.org/top25/archive/2021/2021_cwe_top25.html)
+Don't be worried if what you want to create a rule for is not part of the list. Code is used in a lot of places nowadays, Infrastructure, internet of things, etc. Add your rule and a fix and it will make a lot of people's software more secure .
 
-### 4. Fill in the finding details
-You final rule should look something like this: 
-```
-{
-    "CodingLanguage":["Angular","JavaScript"],
-    "rule":"\\S+_rule",
-    "fix":"fix_rule",
-    "cwe":"89",
-    "findingType":"SQL Injection",
-    "severity":"High",
-    "ApplicationType":"web",
-    "ContributorID":"123",
-    "RuleType":"FindNFix",
-    "FixType":"Interactive",
-    "ArticleID":"12"
-}
-```
+
