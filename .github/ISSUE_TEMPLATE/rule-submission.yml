@@ -1,0 +1,77 @@
+name: Issue submission form
+description: Submit a new rule and fix 
+title: "[Rule&Fix]: <Vulnerability Name> - <Severity> - CWE <number>"
+labels: [rule, fix]
+assignees:
+  - fixerTwo
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for submitting a new security finding rules & fix to CrowdQ!
+  - type: input
+    id: vuln-type
+    attributes:
+      label: Vulnerability Type 
+      placeholder: ex. Cross Site Scripting, SQL Injection, OS Injection, etc
+    validations:
+      required: true
+  - type: input
+    id: vuln-cwe
+    attributes:
+      label: CWE(s) value
+      description: What [CWE(s)](https://cwe.mitre.org/about/index.html) does this vulnerability cover? 
+      placeholder: ex. 79, 89, 77, etc
+    validations:
+      required: false
+  - type: textarea
+    id: vuln-details
+    attributes:
+      label: What vulnerability are you trying to find?
+      description: Give us some details about the type of vulnerability you are targetting. Explain this like you would to a 4 year old. 
+      placeholder: Give us a short description of the finding you are after!
+      value: "Describe the vulnerability to the best of your ability!"
+    validations:
+      required: true
+  - type: textarea
+    id: find-rule
+    attributes:
+      label: How we can find the vulnerable code?
+      description: Tell us how we can find this vulnerability and attach a vulnerable code sample.
+      placeholder: Rules description and sample bad code. 
+      value: "Explain how this vulnerability can be identified and give us a sample that shows some vulnerable code" 
+    validations:
+      required: true
+  - type: textarea
+    id: fix-rule
+    attributes:
+      label: How we can fix this vulnerability?
+      description: Tell us how this vulnerability can be fixed and attach a code sample that was fixed.
+      placeholder: Fix description and sample fixed code. 
+      value: "Explain how the vulnerability can be fixed and give us a sample that shows how the vulnerable code form above can be fixed."
+    validations: 
+      required: false
+  - type: dropdown
+    id: app-type
+    attributes:
+      label: What ype of apps are affected by this vulnerability?
+      multiple: true
+      options:
+        - Web
+        - APIs
+        - Mobile
+        - Desktop
+  - type: textarea
+    id: more-info
+    attributes: 
+      label: Further Reading
+      description: Give us more details about this type of vulnerability that you think could be useful
+      placeholder: Alternative CWE values, external resources that talk about the issue, link to code with vulnerabilities
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Terms & Conditions
+      description: By submitting this form, you agree to follow our [T&Cs](https://www.crowdq.dev/challenge)
+      options:
+        - label: I agree to follow this project's Terms & Conditions
+          required: true
