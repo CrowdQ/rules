@@ -1,6 +1,6 @@
 # How to contribute
 
-Before you contribute start with a bit of research. Check if ther are any rules for what you're about to add. If there's no rule, let's get started. 
+Before you contribute, start with a bit of research. Check if ther are any rules for what you're about to add. If there's no rule, let's get started. 
 You can see the entire rules set under [Issues](https://github.com/CrowdQ/rules/issues)
 
 ### 1. Create your submission ticket
@@ -14,7 +14,7 @@ Read about the vulnerabilities that exist and pick one you like best. After you 
 In this case we're going to look at at `A7:2017-Cross-Site Scripting XSS` and the languages I'm interested are JavaScript(JS) and Java & JSPs. 
 
 ### Vulnerability Type
-I now know the vulnerability type I'm after: `Cross Site Scripting (XSS)`. Use this for the Vulnerability Typ field. 
+I now know the vulnerability type I'm after: `Cross Site Scripting (XSS)`. Use this for the Vulnerability Type field. 
 
 ### CWE
 The second thing you'll want is the CWE value. Head over to [CWE](https://cwe.mitre.org/) and look for the vulnerability type and you'll quickly find the number you are after. You'll find that for XSS the value is 79. If you're unsure don't fill in the CWE Value. 
@@ -44,7 +44,7 @@ document.write(<%request.getParameter("userid")%>)
 Now that we know about how the vulnerability looks in code, we will want to understand how someone can fix this vulnerability.
 
 This step is not mandatory, but having a strong fix (and a way to fix automatically) will strongly improve the addoption and usage of the rule. 
-In the case above we can get the parameter in an encoded format wich will simply print out instead of being executed. The method we need to use is `getEncodedParameter` 
+In the case above we can get the parameter in an encoded format which will simply print out instead of being executed. The method we need to use is `getEncodedParameter` 
 
 I can now write a snippet of code which shows how to fix the vulnerability:
 ```javascript
@@ -53,13 +53,13 @@ document.write(<%request.getEncodedParameter("userid")%>)
 </script>
 ```
 
-### What apps are affected by the vulneraility 
+### What apps are affected by the vulnerability 
 Select from the list the type of apps that are affected by this vulnerability. If you think there's a different type of app that is not in the list, mention this in the further reading section. 
 
 ### Further reading 
-In this section you will want to ad links ot external sources. In our case there's intheresting information about this in places like OWASP, the CWE article, and links to other blogs that explain what `getEncodedParameter`does and when it should be used instead of `getParameter` 
+In this section you will want to add links ot external sources. In our case there's intheresting information about this in places like OWASP, the CWE article, and links to other blogs that explain what `getEncodedParameter`does and when it should be used instead of `getParameter` 
 
-# 3. Select your issue title
+### 3. Select your issue title
 At the top of the form you'll see something like this:
 `[Rule&Fix]: <Vulnerability Name> - <Severity> - CWE <number>`
 
@@ -71,8 +71,8 @@ XSS is usually a <span style="color:red">**High**</span> Severity so we'll use t
 
 The final rule name is: `[Rule&Fix]: XSS in Document.write - High - CWE 79`
 
-# 4. Get started 
-As a general advice you'll want to target at list items from the [OWASP Top 10](https://owasp.org/www-project-top-ten/) list or [2021 CWE Top 25 Most Dangerous Software Weaknesses](https://cwe.mitre.org/top25/archive/2021/2021_cwe_top25.html)
-Don't be worried if what you want to create a rule for is not part of the list. Code is used in a lot of places nowadays, Infrastructure, internet of things, etc. Add your rule and a fix and it will make a lot of people's software more secure .
+### 4. Get started 
+As a general advice you'll want to target at list items from the [OWASP Top 10](https://owasp.org/www-project-top-ten/) list or [2021 CWE Top 25 Most Dangerous Software Weaknesses](https://cwe.mitre.org/top25/archive/2021/2021_cwe_top25.html).
+Don't be worried if the item you want to create a rule for is not part of the above lists. Nowadays a code can be used in different places, Infrastructure, internet of things, etc. The rule and fix you add will help make a lot of people's software more secure.
 
 
