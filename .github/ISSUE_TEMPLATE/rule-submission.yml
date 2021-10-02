@@ -16,7 +16,7 @@ body:
       placeholder: ex. Cross Site Scripting, SQL Injection, OS Injection, etc
     validations:
       required: true
-   - type: input
+  - type: input
     id: language
     attributes:
       label: Language 
