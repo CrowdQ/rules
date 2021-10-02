@@ -61,7 +61,7 @@ In this section you will want to add links ot external sources. In our case ther
 
 ### 3. Select your issue title
 At the top of the form you'll see something like this:
-`[Rule&Fix]: <Vulnerability Name> - <Severity> - CWE <number>`
+`[Rule&Fix]: <Vulnerability Name> - <Language> - <Severity> - CWE <number>`
 
 If you have both a detection Rule advisory and a way to fix it, use `Rule&Fix` otherwise simply use `Rule` or even `Fix` if you think you spotted a rule that you can improve. 
 Select your vulnerability name. It can always be changed later if you don't like it. 
@@ -69,7 +69,7 @@ Then select a Severity and a the CWE value.
 If you don't know what severity to use or what it means, use `Unknown`. A simple way of selecting a severity is to think about how much damage this vulnerability can do if exploited. If it's really bad, select Critical and go down to High, Medium, Low or Informational. 
 XSS is usually a <span style="color:red">**High**</span> Severity so we'll use the same. 
 
-The final rule name is: `[Rule&Fix]: XSS in Document.write - High - CWE 79`
+The final rule name is: `[Rule&Fix]: XSS - JavaScript -  Document.write - High - CWE 79`
 
 ### 4. Get started 
 As a general advice you'll want to target at list items from the [OWASP Top 10](https://owasp.org/www-project-top-ten/) list or [2021 CWE Top 25 Most Dangerous Software Weaknesses](https://cwe.mitre.org/top25/archive/2021/2021_cwe_top25.html).
