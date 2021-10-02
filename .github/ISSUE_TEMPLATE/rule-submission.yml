@@ -1,6 +1,6 @@
 name: Issue submission form
 description: Submit a new rule and fix 
-title: "[Rule&Fix]: <Vulnerability Name> - <Severity> - CWE <number>"
+title: "[Rule&Fix]: <Vulnerability Name> - <Language> - <Severity> - CWE <number>"
 labels: [rule, fix]
 assignees:
   - fixerTwo
