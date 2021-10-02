@@ -16,6 +16,13 @@ body:
       placeholder: ex. Cross Site Scripting, SQL Injection, OS Injection, etc
     validations:
       required: true
+   - type: input
+    id: language
+    attributes:
+      label: Language 
+      placeholder: ex. Java, JavaScript, Node.JS, etc. (Specific framework names are welcomed)
+    validations:
+      required: true
   - type: input
     id: vuln-cwe
     attributes:
